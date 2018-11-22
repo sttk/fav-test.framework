@@ -1,0 +1,45 @@
+{
+  "name": "@fav/test.framework",
+  "version": "0.0.0",
+  "description": "Javascript test framework like Mocha.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "./test/test.sh",
+    "test_w": "test\test.bat",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sttk/fav-test.framework.git"
+  },
+  "keywords": [
+    "test",
+    "framework",
+    "fav",
+    "tdd",
+    "bdd"
+  ],
+  "author": "Takayuki Sato",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sttk/fav-test.framework/issues"
+  },
+  "homepage": "https://github.com/sttk/fav-test.framework#readme",
+  "devDependencies": {
+    "@fav/cli.parse-argv": "^0.1.1",
+    "@fav/text.repeat": "^1.0.2",
+    "@fav/type.format-number": "^1.0.2",
+    "@xslet/platform": "^0.2.1",
+    "eslint": "^5.8.0",
+    "nyc": "^13.0.1",
+    "semver": "^5.6.0",
+    "should": "^13.2.3"
+  },
+  "dependencies": {
+    "@fav/type.is-array": "^1.0.2",
+    "@fav/type.is-empty": "^1.0.2",
+    "@fav/type.is-function": "^1.0.2",
+    "@fav/type.is-integer": "^1.0.2"
+  }
+}
