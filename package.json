@@ -6,8 +6,13 @@
   "scripts": {
     "lint": "eslint .",
     "test": "./test/test.sh",
-    "test_w": "test\test.bat",
-    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test"
+    "test_w": ".\\test\\test.bat",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
+    "coveralls": "nyc --reporter=text-lcov npm test | coveralls",
+    "web:build": "npm run web:build-src && npm run web:build-test",
+    "web:build-src": "browserify index.js --standalone fav.test.framework -o web/fav.test.framework.js && cd web && uglifyjs fav.test.framework.js --compress --mangle --keep-fnames -o fav.test.framework.min.js --source-map url=fav.test.framework.min.js.map",
+    "web:build-test": "node tool/mktest.js",
+    "build": "npm run lint && npm run coverage && npm run web:build"
   },
   "repository": {
     "type": "git",
@@ -31,10 +36,13 @@
     "@fav/text.repeat": "^1.0.2",
     "@fav/type.format-number": "^1.0.2",
     "@xslet/platform": "^0.2.1",
+    "browserify": "^16.2.3",
+    "coveralls": "^3.0.2",
     "eslint": "^5.8.0",
     "nyc": "^13.0.1",
     "semver": "^5.6.0",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "uglify-js": "^3.4.9"
   },
   "dependencies": {
     "@fav/type.is-array": "^1.0.2",

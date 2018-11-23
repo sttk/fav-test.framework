@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Test of @fav/test.framework</title>
+<script src="../../web/fav.test.framework.min.js"></script>
+<script>
+var Framework = fav.test.framework;
+var fw = new Framework(),
+    suite = fw.suite,
+    test = fw.test;
+    before = fw.before,
+    after = fw.after,
+    beforeEach = fw.beforeEach,
+    afterEach = fw.afterEach;
+suite.skip = fw.skipSuite;
+test.skip = fw.skipTest;
+suite.only = fw.onlySuite;
+test.only = fw.onlyTest;
+fw.on('start', function(node) {
+  console.log(node.title, 'start');
+});
+fw.on('end', function(node) {
+  console.log(node.title, 'end');
+});
+fw.on('error', function(node) {
+  console.log(node.title, 'error', node.error);
+});
+window.addEventListener('load', function() {
+  fw.run();
+});
+</script>
+</head>
+<body>
+<script>
+suite('1. suite', function() {
+  test('1.1. test', function() {
+  });
+});
+</script>
+<script>
+</script>
+</body>
+</html>
