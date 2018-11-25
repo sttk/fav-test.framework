@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/test');
+var test = require('../tool/run-test');
 
 var implementEvent = require('../../lib/event');
 var implementTree = require('../../lib/tree');
@@ -30,8 +30,10 @@ function createTester() {
     fw.log(node.title + ' end (timeout:' + node.timeout  + ')');
     logTimeout(node);
   });
+  fw.on('succeed', function(node) {
+    fw.log(node.title + ' succeed (timeout:' + node.timeout  + ')');
+  });
   fw.on('error', function(node) {
-    console.log(node.error);
     fw.log(node.title + ' error: ' + node.error);
   });
   fw.on('timeout', function(node) {
@@ -87,15 +89,20 @@ test.add('default timeout (test)', function(done) {
         '1. Test start (timeout:2000)',
         '1. Test run - (1)',
         '1. Test run - (2)',
+        '1. Test succeed (timeout:2000)',
         '1. Test end (timeout:2000)',
         '2. Test start (timeout:2000)',
         '2. Test run - (1)',
         '2. Test timeover (timeout:2000)',
+        '2. Test error: Error: Timeout of 2000ms exceeded. ' +
+          'For async tests and hooks, ensure "done()" is called; ' +
+          'if returning a Promise, ensure it resolves.',
         '2. Test end (timeout:2000)',
         '3. Test start (timeout:2000)',
         '3. Test run - (1)',
         '2. Test run - (2)',
         '3. Test run - (2)',
+        '3. Test succeed (timeout:2000)',
         '3. Test end (timeout:2000)',
         'Support timeout end (timeout:undefined)',
       ]);
@@ -141,15 +148,20 @@ test.add('set timeout in test', function(done) {
         '1. Test start (timeout:2000)',
         '1. Test run - (1)',
         '1. Test run - (2)',
+        '1. Test succeed (timeout:2000)',
         '1. Test end (timeout:2000)',
         '2. Test start (timeout:2000)',
         '2. Test run - (1)',
         '2. Test timeover (timeout:500)',
+        '2. Test error: Error: Timeout of 500ms exceeded. ' +
+          'For async tests and hooks, ensure "done()" is called; ' +
+          'if returning a Promise, ensure it resolves.',
         '2. Test end (timeout:500)',
         '3. Test start (timeout:2000)',
         '3. Test run - (1)',
         '2. Test run - (2)',
         '3. Test run - (2)',
+        '3. Test succeed (timeout:2000)',
         '3. Test end (timeout:2000)',
         'Support timeout end (timeout:undefined)',
       ]);
@@ -195,14 +207,17 @@ test.add('set no timeout in test', function(done) {
         '1. Test start (timeout:2000)',
         '1. Test run - (1)',
         '1. Test run - (2)',
+        '1. Test succeed (timeout:2000)',
         '1. Test end (timeout:2000)',
         '2. Test start (timeout:2000)',
         '2. Test run - (1)',
         '2. Test run - (2)',
+        '2. Test succeed (timeout:0)',
         '2. Test end (timeout:0)',
         '3. Test start (timeout:2000)',
         '3. Test run - (1)',
         '3. Test run - (2)',
+        '3. Test succeed (timeout:2000)',
         '3. Test end (timeout:2000)',
         'Support timeout end (timeout:undefined)',
       ]);
@@ -266,16 +281,21 @@ test.add('set timeout in suite', function(done) {
         '1.1.1. Test start (timeout:2000)',
         '1.1.1. Test run - (1)',
         '1.1.1. Test run - (2)',
+        '1.1.1. Test succeed (timeout:2000)',
         '1.1.1. Test end (timeout:2000)',
         '1.1. Suite end (timeout:undefined)',
         '1.2. Suite start (timeout:undefined)',
         '1.2.1. Test start (timeout:2000)',
         '1.2.1. Test run - (1)',
         '1.2.1. Test run - (2)',
+        '1.2.1. Test succeed (timeout:2000)',
         '1.2.1. Test end (timeout:2000)',
         '1.2.2. Test start (timeout:500)',
         '1.2.2. Test run - (1)',
         '1.2.2. Test timeover (timeout:500)',
+        '1.2.2. Test error: Error: Timeout of 500ms exceeded. ' +
+          'For async tests and hooks, ensure "done()" is called; ' +
+          'if returning a Promise, ensure it resolves.',
         '1.2.2. Test end (timeout:500)',
         '1.2. Suite end (timeout:undefined)',
         '1.3. Suite start (timeout:undefined)',
@@ -283,6 +303,7 @@ test.add('set timeout in suite', function(done) {
         '1.3.1. Test run - (1)',
         '1.2.2. Test run - (2)',
         '1.3.1. Test run - (2)',
+        '1.3.1. Test succeed (timeout:2000)',
         '1.3.1. Test end (timeout:2000)',
         '1.3. Suite end (timeout:undefined)',
         '1. Suite end (timeout:undefined)',
@@ -320,6 +341,7 @@ test.add('set illegal timeout in suite', function(done) {
         'Test start (timeout:2000)',
         'Test run - (1)',
         'Test run - (2)',
+        'Test succeed (timeout:2000)',
         'Test end (timeout:2000)',
         'Suite end (timeout:undefined)',
         'Support timeout end (timeout:undefined)',
@@ -352,6 +374,7 @@ test.add('set illegal timeout in test', function(done) {
         'Test start (timeout:2000)',
         'Test run - (1)',
         'Test run - (2)',
+        'Test succeed (timeout:2000)',
         'Test end (timeout:2000)',
         'Support timeout end (timeout:undefined)',
       ]);

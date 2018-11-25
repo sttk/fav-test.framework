@@ -3,46 +3,46 @@
 var PASS = green('pass');
 var FAIL = red('fail');
 
-var root = {};
-var testcase = root;
+var firstCase = {};
+var testCase = firstCase;
 var testCount = 0;
 var doneCount = 0;
 
 function add(title, fn) {
-  testcase.title = title;
-  testcase.fn = fn;
-  testcase = testcase.next = {};
+  testCase.title = title;
+  testCase.fn = fn;
+  testCase = testCase.next = {};
   testCount++;
 }
 
 function run(cb) {
-  testcase = root;
+  testCase = firstCase;
   nextRun(cb);
 }
 
 function nextRun(cb) {
-  if (!testcase.fn) {
+  if (!testCase.fn) {
     if (typeof cb === 'function') {
       cb();
     }
-    testcase = root = {};
+    testCase = firstCase = {};
     return;
   }
 
   try {
-    testcase.fn(function(e) {
+    testCase.fn(function(e) {
       if (e) {
-        console.log('[' + FAIL + '] ' + testcase.title);
+        console.log('[' + FAIL + '] ' + testCase.title);
         throw e;
       }
-      console.log('[' + PASS + '] ' + testcase.title);
-      testcase = testcase.next;
+      console.log('[' + PASS + '] ' + testCase.title);
+      testCase = testCase.next;
       doneCount++;
       checkComplete();
       nextRun(cb);
     });
   } catch (e1) {
-    console.log('[' + FAIL + '] ' + testcase.title);
+    console.log('[' + FAIL + '] ' + testCase.title);
     throw e1;
   }
 }

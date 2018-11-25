@@ -1,7 +1,8 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/test');
+var test = require('../tool/run-test');
+
 var Framework = require('../..');
 
 function createTester() {

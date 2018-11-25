@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/test');
+var test = require('../tool/run-test');
 
 var implementEvent = require('../../lib/event');
 var implementTree = require('../../lib/tree');

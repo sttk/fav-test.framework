@@ -1,11 +1,11 @@
 'use strict';
 
-var listFiles = require('../../tool/lib/list-files');
-var copyFile = require('../../tool/lib/copy-file');
+var listFiles = require('./lib/list-files');
+var copyFile = require('./lib/copy-file');
 
 var path = require('path');
-var unitDir = path.resolve(__dirname, '../unit');
-var joinDir = path.resolve(__dirname, '../join');
+var unitDir = path.resolve(__dirname, '../test/unit');
+var joinDir = path.resolve(__dirname, '../test/join');
 
 listFiles(unitDir, '.test.js').forEach(transformFile);
 

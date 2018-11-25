@@ -24,16 +24,17 @@ For Node.js:
 ```js
 var Framework = require('@fav/test.framework');
 var fw = new Framework(),
-    suite = fw.suite,
-    test = fw.test,
+    describe = fw.suite,
+    it = fw.test,
     before = fw.before,
     after = fw.after,
     beforeEach = fw.beforeEach,
     afterEach = fw.afterEach;
-suite.skip = fw.skipSuite;
-test.skip = fw.skipTest;
-suite.only = fw.onlySuite;
-test.only = fw.onlyTest;
+
+describe.skip = fw.skipSuite;
+it.skip = fw.skipTest;
+describe.only = fw.onlySuite;
+it.only = fw.onlyTest;
 ```
 
 ```html
@@ -41,23 +42,211 @@ test.only = fw.onlyTest;
 <script>
 var Framework = fav.test.framework;
 var fw = new Framework(),
-    suite = fw.suite,
-    test = fw.test,
+    describe = fw.suite,
+    it = fw.test,
     before = fw.before,
     after = fw.after,
     beforeEach = fw.beforeEach,
     afterEach = fw.afterEach;
-suite.skip = fw.skipSuite;
-test.skip = fw.skipTest;
-suite.only = fw.onlySuite;
-test.only = fw.onlyTest;
+
+describe.skip = fw.skipSuite;
+it.skip = fw.skipTest;
+describe.only = fw.onlySuite;
+it.only = fw.onlyTest;
 </script>
 ```
 
-### 
-
 ## API
 
+### <u>class Framework</u>
+
+This class is a test framework like [Mocha](https://github.com/mochajs/mocha).
+
+#### *constructor*(void)
+
+Creates an instance of this class.
+This constructor receives no arguments.
+
+#### .suite(title, cb) : void
+
+Registers a test suite to a test tree.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this suite. |
+| *cb*      | function | The callback function to create a test tree |
+
+#### .test(title, cb) : void
+
+Registers a test case to a test tree.
+
+If *fn* is not specified, this test is regarded as a skipped test.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this test   |
+| *cb*      | function | The callback function which runs a test case |
+
+#### .before([ title, ] cb) : void
+
+Registers a 'before' hook which runs before all suites and tests in the same level of this hook.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this hook (Optional) |
+| *cb*      | function | The callback function of this hook |
+
+#### .after([ title, ] cb) : void
+
+Registers a 'after' hook which runs after all suites and tess in the same level of this hook.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this hook (Optional) |
+| *cb*      | function | The callback function of this hook |
+
+#### .beforeEach([ title, ] cb) : void
+
+Registers a 'beforeEach' hook which runs before each test in the same and lower levels of this hook.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this hook (Optional) |
+| *cb*      | function | The callback function of this hook |
+
+#### .afterEach([ title, ] cb) : void
+
+Registers a 'afterEach' hook which runs after each test in the same and lower levels of this hook. 
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this hook (Optional) |
+| *cb*      | function | The callback function of this hook |
+
+#### .skipSuite(title, fn) : void
+
+Registers a skipped suite which skips all child suites and tests of this suite to a test tree.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this suite  |
+| *cb*      | function | The callback function to create a test tree |
+
+#### .skipTest(title, fn) : void
+
+Registers a skipped test which skips all child suites and tests of this suite to a test tree.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this test   |
+| *cb*      | function | The callback function of a test case |
+
+#### .onlySuite(title, fn) : void
+
+Registers an exclusive test suite which runs child tests in this suite exclusively.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this suite  |
+| *cb*      | function | The callback function to create a test tree |
+
+#### .onlyTest(title, fn) : void
+
+Registers an exclusive test case.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *title*   | string   | The title of this test   |
+| *cb*      | function | The callback function which runs a test case |
+
+#### .run(cb) : void
+
+Runs tests in the test tree of this framework object.
+
+| Parameter | Type     | Description              |
+|:----------|:--------:|:-------------------------|
+| *cb*      | function | The callback function which run when all tests finished. |
+
+#### .on(eventName, handler) : void
+
+Registers an event handler.
+
+| Parameter   | Type     | Description              |
+|:------------|:--------:|:-------------------------|
+| *eventName* | string   | An event name            |
+| *handler*   | function | An event handler         |
+
+## Events
+
+#### 'start' event
+
+Is fired when a suite or a test is started.
+This event is fired even suite or test are skipped, but not when they are excluded by other `.onlySuite` or `.onlyTest`. 
+
+#### 'succeed' event
+
+Is fired when a test ends with no error.
+
+#### 'error' event
+
+Is fired when a test ends with errors.
+This event is also fired when a test is timeout.
+
+#### 'timeout' event
+
+Is fired when a test is timeout.
+
+#### 'skip' event
+
+Is fired when a test is skipped.
+
+#### 'end' event
+
+Is fired when a suite or a test ends.
+This event is fired even when a test is error or skipped, but not when they are excluded by other `.onlySuite` or `.onlyTest`.
+
+
+## Checked
+
+### Node.js (11〜)
+
+| Platform  |   11   |
+|:---------:|:------:|
+| macOS     |&#x25ef;|
+| Windows10 |&#x25ef;|
+| Linux     |&#x25ef;|
+
+### Node.js (4〜10)
+
+| Platform  |   4    |   5    |   6    |   7    |   8    |   9    |   10   |
+|:---------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
+| macOS     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Windows10 |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Linux     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+
+### io.js (1〜3)
+
+| Platform  |   1    |   2    |   3    |
+|:---------:|:------:|:------:|:------:|
+| macOS     |&#x25ef;|&#x25ef;|&#x25ef;|
+| Windows10 |&#x25ef;|&#x25ef;|&#x25ef;|
+| Linux     |&#x25ef;|&#x25ef;|&#x25ef;|
+
+### Node.js (〜0.12)
+
+| Platform  |  0.8   |  0.9   |  0.10  |  0.11  |  0.12  |
+|:---------:|:------:|:------:|:------:|:------:|:------:|
+| macOS     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Windows10 |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Linux     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+
+### Web browsers
+
+| Platform  | Chrome | Firefox | Vivaldi | Safari |  Edge  | IE11   |
+|:---------:|:------:|:-------:|:-------:|:------:|:------:|:------:|
+| macOS     |&#x25ef;|&#x25ef; |&#x25ef; |&#x25ef;|   --   |   --   |
+| Windows10 |&#x25ef;|&#x25ef; |&#x25ef; |   --   |&#x25ef;|&#x25ef;|
+| Linux     |&#x25ef;|&#x25ef; |&#x25ef; |   --   |   --   |   --   |
 
 ## License
 

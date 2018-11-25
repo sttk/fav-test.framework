@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Test of @fav/test.framework</title>
-<script src="../../web/fav.test.framework.min.js"></script>
-<script>
-var Framework = fav.test.framework;
-var fw = new Framework(),
-    suite = fw.suite,
-    test = fw.test;
-    before = fw.before,
-    after = fw.after,
-    beforeEach = fw.beforeEach,
-    afterEach = fw.afterEach;
-suite.skip = fw.skipSuite;
-test.skip = fw.skipTest;
-suite.only = fw.onlySuite;
-test.only = fw.onlyTest;
-fw.on('start', function(node) {
-  console.log(node.title, 'start');
-});
-fw.on('end', function(node) {
-  console.log(node.title, 'end');
-});
-fw.on('error', function(node) {
-  console.log(node.title, 'error', node.error);
-});
-window.addEventListener('load', function() {
-  fw.run();
-});
-</script>
+ <meta charset="utf-8"/>
+ <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <title>Test of @fav/test.framework</title>
+ <script src="../../web/fav.test.framework.min.js"></script>
+ <script src="../../node_modules/chai/chai.js"></script>
+ <script src="../../node_modules/\@xslet/platform/dist/xslet.platform.min.js">
+ </script>
+ <script src="../../node_modules/@fav/text.escape/web/fav.text.escape.min.js">
+ </script>
+ <script src="../../node_modules/promise-polyfill/dist/polyfill.min.js">
+ </script>
+ <script src="./report.js"></script>
+ <link href="./report.css" rel="stylesheet"/>
 </head>
 <body>
-<script>
-suite('1. suite', function() {
-  test('1.1. test', function() {
-  });
-});
-</script>
-<script>
-</script>
+ <script src="./getting-start.test.js"></script>
+ <script src="./detects-multiple-calls-to-done.test.js"></script>
+ <script src="./asynchronous-code.test.js"></script>
+ <script src="./working-with-promises.test.js"></script>
+ <!--[if !IE]>
+ <script src="./using-async-await.test.js"></script>
+ <![endif]-->
+ <script src="./synchronous-code.test.js"></script>
+ <script src="./hooks.test.js"></script>
+ <script src="./describing-hooks.test.js"></script>
+ <script src="./asynchronous-hooks.test.js"></script>
+ <script src="./delayed-root-suite.test.js"></script>
+ <script src="./pending-tests.test.js"></script>
+ <script src="./exclusive-tests.test.js"></script>
+ <script src="./inclusive-tests.test.js"></script>
+ <script src="./retry-tests.test.js"></script>
+ <script src="./dynamically-generating-tests.test.js"></script>
+ <script src="./test-duration.test.js"></script>
+ <script src="./timeouts.test.js"></script>
 </body>
 </html>

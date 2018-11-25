@@ -3,15 +3,17 @@
   "version": "0.0.0",
   "description": "Javascript test framework like Mocha.",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "lib"
+  ],
   "scripts": {
     "lint": "eslint .",
     "test": "./test/test.sh",
     "test_w": ".\\test\\test.bat",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
     "coveralls": "nyc --reporter=text-lcov npm test | coveralls",
-    "web:build": "npm run web:build-src && npm run web:build-test",
-    "web:build-src": "browserify index.js --standalone fav.test.framework -o web/fav.test.framework.js && cd web && uglifyjs fav.test.framework.js --compress --mangle --keep-fnames -o fav.test.framework.min.js --source-map url=fav.test.framework.min.js.map",
-    "web:build-test": "node tool/mktest.js",
+    "web:build": "browserify index.js --standalone fav.test.framework -o web/fav.test.framework.js && cd web && uglifyjs fav.test.framework.js --compress --mangle --keep-fnames -o fav.test.framework.min.js --source-map url=fav.test.framework.min.js.map",
     "build": "npm run lint && npm run coverage && npm run web:build"
   },
   "repository": {
@@ -33,18 +35,23 @@
   "homepage": "https://github.com/sttk/fav-test.framework#readme",
   "devDependencies": {
     "@fav/cli.parse-argv": "^0.1.1",
+    "@fav/text.escape": "^1.0.2",
     "@fav/text.repeat": "^1.0.2",
     "@fav/type.format-number": "^1.0.2",
     "@xslet/platform": "^0.2.1",
     "browserify": "^16.2.3",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.2",
     "eslint": "^5.8.0",
     "nyc": "^13.0.1",
+    "promise-polyfill": "^8.1.0",
     "semver": "^5.6.0",
     "should": "^13.2.3",
     "uglify-js": "^3.4.9"
   },
   "dependencies": {
+    "@fav/prop.define": "^0.1.0",
     "@fav/type.is-array": "^1.0.2",
     "@fav/type.is-empty": "^1.0.2",
     "@fav/type.is-function": "^1.0.2",

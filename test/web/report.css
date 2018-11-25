@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+html { font-size: 14px; }
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 60px 50px;
+}
+
+article > h2 { padding: 1rem; margin: 0px; font-size: 1.2rem; }
+
+article > div.result,
+article > div.suite,
+article > div.test { margin-left: 2rem; }
+
+div.suite > div.suite,
+div.suite > div.test { margin-left: 1rem; }
+
+span.judge { display: inline-block; width: 1.2rem; }
+
+span.ok { color: #0c0; }
+span.ng { color: #c00; }
+div.error { color: #c00; }
+div.skip { color: #0cc; }
+
+span.duration { margin-left: 0.5rem; color: #0c0; }
+span.slow { color: #c00; }
+span.a-little-slow { color: #cc0; }
+div.error > div.title > span.duration { color: #c00; }
+
+div.error > div.title:hover { cursor: pointer; text-decoration: underline; }
+div.error-stack {
+  font-size: 86%;
+  margin-left: 1rem;
+  border: solid 1px #dbb;
+  display: none;
+}
+
+div.result { padding: 1rem 0px; }
+
+article:not(:last-of-type) { border-bottom: solid 1px #ccc; }
+
+div.passing { color: #0c0; }
+div.pending { color: #0cc; }
+div.failing { color: #c00; }

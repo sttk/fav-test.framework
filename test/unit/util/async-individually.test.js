@@ -1,22 +1,21 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/test');
-var run = require('../../lib/util/run-async').sequentially;
+var test = require('../../tool/run-test');
 
-test.desc('lib/util/run-async.js - runAsyncSequentially');
+var runner = require('../../../lib/util/async-runner');
 
-test.add('Run async functions sequentially', function(done) {
+test.desc('lib/util/async.js (individually)');
+
+test.add('Run async functions individually', function(done) {
   var logs = [];
-
   function runTest(test, cb) {
     logs.push(test.title + ' - (1)');
     setTimeout(function() {
       logs.push(test.title + ' - (2)');
       cb();
-    }, 1000);
+    }, 200);
   }
-
   var nodes = [
     { title: 'case 1', run: runTest },
     { title: 'case 2', run: runTest },
@@ -34,14 +33,25 @@ test.add('Run async functions sequentially', function(done) {
     done();
   };
 
-  run(nodes, cb);
+  runner.runAsyncIndividually(nodes, cb);
 });
 
-test.add('Run sync functions sequentially', function(done) {
+test.add('Run no test', function(done) {
+  var logs = [];
+  var nodes = [];
+  var cb = function() {
+    assert.deepEqual(logs, []);
+    done();
+  };
+
+  runner.runAsyncIndividually(nodes, cb);
+});
+
+test.add('Catch an error but continue', function(done) {
   var logs = [];
   function runTest(test, cb) {
-    logs.push(test.title + ' run');
-    cb();
+    logs.push(test.title);
+    cb(new TypeError('error'));
   }
   var nodes = [
     { title: 'case 1', run: runTest },
@@ -50,29 +60,14 @@ test.add('Run sync functions sequentially', function(done) {
   ];
   var cb = function() {
     assert.deepEqual(logs, [
-      'case 1 run',
-      'case 2 run',
-      'case 3 run',
+      'case 1',
+      'case 2',
+      'case 3',
     ]);
     done();
   };
 
-  run(nodes, cb);
-});
-
-test.add('Run no test', function(done) {
-  var logs = [];
-  var nodes = [];
-  var cb = function() {
-    try {
-      assert.deepEqual(logs, []);
-      done();
-    } catch (e) {
-      done(e);
-    }
-  };
-
-  run(nodes, cb);
+  runner.runAsyncIndividually(nodes, cb);
 });
 
 test.run();

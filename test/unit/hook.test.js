@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/test');
+var test = require('../tool/run-test');
 
 var implementEvent = require('../../lib/event');
 var implementTree = require('../../lib/tree');
@@ -48,16 +48,21 @@ test.add('Use hooks: before & after (1)', function(done) {
   });
 
   fw.run(function() {
-    assert.deepEqual(fw._logs, [
-      'Support hooks start',
-      '0. Before run',
-      '1. Test start',
-      '1. Test run',
-      '1. Test end',
-      '0. After run',
-      'Support hooks end',
-    ]);
-    done();
+    try {
+      assert.deepEqual(fw._logs, [
+        'Support hooks start',
+        '0. Before run',
+        '1. Test start',
+        '1. Test run',
+        '1. Test end',
+        '0. After run',
+        'Support hooks end',
+      ]);
+      done();
+    } catch (e) {
+      console.log(e);
+      done(e);
+    }
   });
 });
 
@@ -371,6 +376,165 @@ test.add('Use hooks: beforeEach & afterEach (3)', function(done) {
       '1.3.2. Test end',
       '1.3. Suite end',
       '1. Suite end',
+      'Support hooks end',
+    ]);
+    done();
+  });
+});
+
+test.add('description hooks', function(done) {
+  var fw = createTester();
+  var it = fw.test;
+  var before = fw.before;
+  var after = fw.after;
+  var beforeEach = fw.beforeEach;
+  var afterEach = fw.afterEach;
+
+  before('0.1. before', function() {
+    fw.log('0.1. before run');
+  });
+  before('0.2. before', function() {
+    fw.log('0.2. before run');
+  });
+  after('0.1. after', function() {
+    fw.log('0.1. after run');
+  });
+  after('0.2. after', function() {
+    fw.log('0.2. after run');
+  });
+  beforeEach('0.1. beforeEach', function() {
+    fw.log('0.1. beforeEach run');
+  });
+  beforeEach('0.2. beforeEach', function() {
+    fw.log('0.2. beforeEach run');
+  });
+  afterEach('0.1. afterEach', function() {
+    fw.log('0.1. afterEach run');
+  });
+  afterEach('0.2. afterEach', function() {
+    fw.log('0.2. afterEach run');
+  });
+  it('1. Test', function() {
+    fw.log('1. Test run');
+  });
+  it('2. Test', function() {
+    fw.log('2. Test run');
+  });
+
+  fw.run(function() {
+    try {
+      assert.deepEqual(fw._logs, [
+        'Support hooks start',
+        '0.1. before run',
+        '0.2. before run',
+        '1. Test start',
+        '0.1. beforeEach run',
+        '0.2. beforeEach run',
+        '1. Test run',
+        '0.1. afterEach run',
+        '0.2. afterEach run',
+        '1. Test end',
+        '2. Test start',
+        '0.1. beforeEach run',
+        '0.2. beforeEach run',
+        '2. Test run',
+        '0.1. afterEach run',
+        '0.2. afterEach run',
+        '2. Test end',
+        '0.1. after run',
+        '0.2. after run',
+        'Support hooks end',
+      ]);
+      done();
+    } catch (e) {
+      console.log(e);
+      done(e);
+    }
+  });
+});
+
+test.add('named hooks', function(done) {
+  var fw = createTester();
+  var it = fw.test;
+  var before = fw.before;
+  var after = fw.after;
+  var beforeEach = fw.beforeEach;
+  var afterEach = fw.afterEach;
+
+  before(function before1() {
+    fw.log('0.1. before run');
+  });
+  before(function before2() {
+    fw.log('0.2. before run');
+  });
+  after(function after1() {
+    fw.log('0.1. after run');
+  });
+  after(function after2() {
+    fw.log('0.2. after run');
+  });
+  beforeEach(function beforeEach1() {
+    fw.log('0.1. beforeEach run');
+  });
+  beforeEach(function beforeEach2() {
+    fw.log('0.2. beforeEach run');
+  });
+  afterEach(function afterEach1() {
+    fw.log('0.1. afterEach run');
+  });
+  afterEach(function afterEach2() {
+    fw.log('0.2. afterEach run');
+  });
+  it('1. Test', function() {
+    fw.log('1. Test run');
+  });
+  it('2. Test', function() {
+    fw.log('2. Test run');
+  });
+
+  fw.run(function() {
+    try {
+      assert.deepEqual(fw._logs, [
+        'Support hooks start',
+        '0.1. before run',
+        '0.2. before run',
+        '1. Test start',
+        '0.1. beforeEach run',
+        '0.2. beforeEach run',
+        '1. Test run',
+        '0.1. afterEach run',
+        '0.2. afterEach run',
+        '1. Test end',
+        '2. Test start',
+        '0.1. beforeEach run',
+        '0.2. beforeEach run',
+        '2. Test run',
+        '0.1. afterEach run',
+        '0.2. afterEach run',
+        '2. Test end',
+        '0.1. after run',
+        '0.2. after run',
+        'Support hooks end',
+      ]);
+      done();
+    } catch (e) {
+      console.log(e);
+      done(e);
+    }
+  });
+});
+
+test.add('No/illegal callback of hook', function(done) {
+  var fw = createTester();
+  var before = fw.before;
+
+  before('No callback');
+  before([]);
+  before('Illegal callback', []);
+
+  fw.run(function() {
+    assert.deepEqual(fw._logs, [
+      'Support hooks start',
       'Support hooks end',
     ]);
     done();

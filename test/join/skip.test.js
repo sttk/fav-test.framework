@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/test');
+var test = require('../tool/run-test');
 
 var Framework = require('../..');
 
@@ -15,14 +15,16 @@ function createTester() {
   };
 
   fw.on('start', function(node) {
-    fw.log(node.title + ' start (skip:' + node.skip  + ')');
+    fw.log(node.title + ' start (skip:' + node.skip.flag  + ')');
   });
   fw.on('end', function(node) {
-    fw.log(node.title + ' end (skip:' + node.skip  + ')');
+    fw.log(node.title + ' end (skip:' + node.skip.flag  + ')');
   });
   fw.on('error', function(node) {
-    console.log(node.error);
     fw.log(node.title + ' error: ' + node.error);
+  });
+  fw.on('skip', function(node) {
+    fw.log(node.title + ' skipped');
   });
   return fw;
 }
@@ -47,16 +49,17 @@ test.add('Run .skip test', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Test start (skip:false)',
         '1. Test run',
         '1. Test end (skip:false)',
         '2. Test start (skip:true)',
+        '2. Test skipped',
         '2. Test end (skip:true)',
         '3. Test start (skip:false)',
         '3. Test run',
         '3. Test end (skip:false)',
-        'Support skip end (skip:undefined)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
@@ -109,7 +112,7 @@ test.add('Run .skip suite', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Suite start (skip:false)',
         '1.1. Suite start (skip:true)',
         '1.1. Suite end (skip:true)',
@@ -142,7 +145,7 @@ test.add('Run .skip suite', function(done) {
         '4.3. Suite start (skip:true)',
         '4.3. Suite end (skip:true)',
         '4. Suite end (skip:true)',
-        'Support skip end (skip:undefined)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
@@ -201,15 +204,17 @@ test.add('Run nested .skip suite/test', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Suite start (skip:false)',
         '1.1. Suite start (skip:true)',
         '1.1.1. Suite start (skip:true)',
         '1.1.1.1. Test start (skip:true)',
+        '1.1.1.1. Test skipped',
         '1.1.1.1. Test end (skip:true)',
         '1.1.1. Suite end (skip:true)',
         '1.1.2. Suite start (skip:true)',
         '1.1.2.1. Test start (skip:true)',
+        '1.1.2.1. Test skipped',
         '1.1.2.1. Test end (skip:true)',
         '1.1.2. Suite end (skip:true)',
         '1.1. Suite end (skip:true)',
@@ -221,21 +226,24 @@ test.add('Run nested .skip suite/test', function(done) {
         '1.2.1. Suite end (skip:false)',
         '1.2.2. Suite start (skip:false)',
         '1.2.2.1. Test start (skip:true)',
+        '1.2.2.1. Test skipped',
         '1.2.2.1. Test end (skip:true)',
         '1.2.2. Suite end (skip:false)',
         '1.2. Suite end (skip:false)',
         '1.3. Suite start (skip:true)',
         '1.3.1. Suite start (skip:true)',
         '1.3.1.1. Test start (skip:true)',
+        '1.3.1.1. Test skipped',
         '1.3.1.1. Test end (skip:true)',
         '1.3.1. Suite end (skip:true)',
         '1.3.2. Suite start (skip:true)',
         '1.3.2.1. Test start (skip:true)',
+        '1.3.2.1. Test skipped',
         '1.3.2.1. Test end (skip:true)',
         '1.3.2. Suite end (skip:true)',
         '1.3. Suite end (skip:true)',
         '1. Suite end (skip:false)',
-        'Support skip end (skip:undefined)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
@@ -275,18 +283,19 @@ test.add('Run .skip test (async)', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Test start (skip:false)',
         '1. Test run - (1)',
         '1. Test run - (2)',
         '1. Test end (skip:false)',
         '2. Test start (skip:true)',
+        '2. Test skipped',
         '2. Test end (skip:true)',
         '3. Test start (skip:false)',
         '3. Test run - (1)',
         '3. Test run - (2)',
         '3. Test end (skip:false)',
-        'Support skip end (skip:undefined)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
@@ -369,15 +378,17 @@ test.add('Run nested .skip suite/test (async)', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Suite start (skip:false)',
         '1.1. Suite start (skip:true)',
         '1.1.1. Suite start (skip:true)',
         '1.1.1.1. Test start (skip:true)',
+        '1.1.1.1. Test skipped',
         '1.1.1.1. Test end (skip:true)',
         '1.1.1. Suite end (skip:true)',
         '1.1.2. Suite start (skip:true)',
         '1.1.2.1. Test start (skip:true)',
+        '1.1.2.1. Test skipped',
         '1.1.2.1. Test end (skip:true)',
         '1.1.2. Suite end (skip:true)',
         '1.1. Suite end (skip:true)',
@@ -390,21 +401,24 @@ test.add('Run nested .skip suite/test (async)', function(done) {
         '1.2.1. Suite end (skip:false)',
         '1.2.2. Suite start (skip:false)',
         '1.2.2.1. Test start (skip:true)',
+        '1.2.2.1. Test skipped',
         '1.2.2.1. Test end (skip:true)',
         '1.2.2. Suite end (skip:false)',
         '1.2. Suite end (skip:false)',
         '1.3. Suite start (skip:true)',
         '1.3.1. Suite start (skip:true)',
         '1.3.1.1. Test start (skip:true)',
+        '1.3.1.1. Test skipped',
         '1.3.1.1. Test end (skip:true)',
         '1.3.1. Suite end (skip:true)',
         '1.3.2. Suite start (skip:true)',
         '1.3.2.1. Test start (skip:true)',
+        '1.3.2.1. Test skipped',
         '1.3.2.1. Test end (skip:true)',
         '1.3.2. Suite end (skip:true)',
         '1.3. Suite end (skip:true)',
         '1. Suite end (skip:false)',
-        'Support skip end (skip:undefined)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
@@ -445,19 +459,20 @@ test.add('Run this.skip test (async)', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Test start (skip:false)',
         '1. Test run - (1)',
         '1. Test run - (2)',
         '1. Test end (skip:false)',
         '2. Test start (skip:false)',
         '2. Test run - (1)',
+        '2. Test skipped',
         '2. Test end (skip:true)',
         '3. Test start (skip:false)',
         '3. Test run - (1)',
         '3. Test run - (2)',
         '3. Test end (skip:false)',
-        'Support skip end (skip:undefined)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
@@ -523,12 +538,13 @@ test.add('Run this.skip suite', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Suite start (skip:false)',
-        '1.1. Suite start (skip:false)',
+        '1.1. Suite start (skip:true)',
         '1.1.1. Test start (skip:true)',
+        '1.1.1. Test skipped',
         '1.1.1. Test end (skip:true)',
-        '1.1. Suite end (skip:false)',
+        '1.1. Suite end (skip:true)',
         '1.2. Suite start (skip:false)',
         '1.2. Suite end (skip:false)',
         '1.3. Suite start (skip:false)',
@@ -537,10 +553,11 @@ test.add('Run this.skip suite', function(done) {
         '2. Suite start (skip:false)',
         '2.1. Suite start (skip:false)',
         '2.1. Suite end (skip:false)',
-        '2.2. Suite start (skip:false)',
+        '2.2. Suite start (skip:true)',
         '2.2.1. Test start (skip:true)',
+        '2.2.1. Test skipped',
         '2.2.1. Test end (skip:true)',
-        '2.2. Suite end (skip:false)',
+        '2.2. Suite end (skip:true)',
         '2.3. Suite start (skip:false)',
         '2.3. Suite end (skip:false)',
         '2. Suite end (skip:false)',
@@ -549,20 +566,21 @@ test.add('Run this.skip suite', function(done) {
         '3.1. Suite end (skip:false)',
         '3.2. Suite start (skip:false)',
         '3.2. Suite end (skip:false)',
-        '3.3. Suite start (skip:false)',
+        '3.3. Suite start (skip:true)',
         '3.3.1. Test start (skip:true)',
+        '3.3.1. Test skipped',
         '3.3.1. Test end (skip:true)',
-        '3.3. Suite end (skip:false)',
+        '3.3. Suite end (skip:true)',
         '3. Suite end (skip:false)',
-        '4. Suite start (skip:false)',
+        '4. Suite start (skip:true)',
         '4.1. Suite start (skip:true)',
         '4.1. Suite end (skip:true)',
         '4.2. Suite start (skip:true)',
         '4.2. Suite end (skip:true)',
         '4.3. Suite start (skip:true)',
         '4.3. Suite end (skip:true)',
-        '4. Suite end (skip:false)',
-        'Support skip end (skip:undefined)',
+        '4. Suite end (skip:true)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
@@ -651,18 +669,20 @@ test.add('Run nested this.skip suite/test (async)', function(done) {
   fw.run(function() {
     try {
       assert.deepEqual(fw._logs, [
-        'Support skip start (skip:undefined)',
+        'Support skip start (skip:false)',
         '1. Suite start (skip:false)',
-        '1.1. Suite start (skip:false)',
+        '1.1. Suite start (skip:true)',
         '1.1.1. Suite start (skip:true)',
         '1.1.1.1. Test start (skip:true)',
+        '1.1.1.1. Test skipped',
         '1.1.1.1. Test end (skip:true)',
         '1.1.1. Suite end (skip:true)',
         '1.1.2. Suite start (skip:true)',
         '1.1.2.1. Test start (skip:true)',
+        '1.1.2.1. Test skipped',
         '1.1.2.1. Test end (skip:true)',
         '1.1.2. Suite end (skip:true)',
-        '1.1. Suite end (skip:false)',
+        '1.1. Suite end (skip:true)',
         '1.2. Suite start (skip:false)',
         '1.2.1. Suite start (skip:false)',
         '1.2.1.1. Test start (skip:false)',
@@ -672,27 +692,86 @@ test.add('Run nested this.skip suite/test (async)', function(done) {
         '1.2.1. Suite end (skip:false)',
         '1.2.2. Suite start (skip:false)',
         '1.2.2.1. Test start (skip:false)',
+        '1.2.2.1. Test skipped',
         '1.2.2.1. Test end (skip:true)',
         '1.2.2. Suite end (skip:false)',
         '1.2. Suite end (skip:false)',
-        '1.3. Suite start (skip:false)',
+        '1.3. Suite start (skip:true)',
         '1.3.1. Suite start (skip:true)',
         '1.3.1.1. Test start (skip:true)',
+        '1.3.1.1. Test skipped',
         '1.3.1.1. Test end (skip:true)',
         '1.3.1. Suite end (skip:true)',
         '1.3.2. Suite start (skip:true)',
         '1.3.2.1. Test start (skip:true)',
+        '1.3.2.1. Test skipped',
         '1.3.2.1. Test end (skip:true)',
         '1.3.2. Suite end (skip:true)',
-        '1.3. Suite end (skip:false)',
+        '1.3. Suite end (skip:true)',
         '1. Suite end (skip:false)',
-        'Support skip end (skip:undefined)',
+        'Support skip end (skip:false)',
       ]);
       done();
     } catch (e) {
       console.log(e);
       done(e);
     }
+  });
+});
+
+test.add('No/illegal callback of test', function(done) {
+  var fw = createTester();
+  var it = fw.test;
+
+  it('No callback');
+  it('Illegal callback', []);
+
+  fw.run(function() {
+    try {
+      assert.deepEqual(fw._logs, [
+        'Support skip start (skip:false)',
+        'No callback start (skip:true)',
+        'No callback skipped',
+        'No callback end (skip:true)',
+        'Illegal callback start (skip:true)',
+        'Illegal callback skipped',
+        'Illegal callback end (skip:true)',
+        'Support skip end (skip:false)',
+      ]);
+      done();
+    } catch (e) {
+      console.log(e);
+      done(e);
+    }
+  });
+});
+
+test.add('No/illegal callback of suite', function(done) {
+  var fw = createTester();
+  var describe = fw.suite;
+
+  try {
+    describe('No callback');
+  } catch (e) {
+    assert.equal(e.message, 'Suite "No callback" was defined ' +
+      'but no callback was supplied. ' +
+      'Supply a callback or explicitly skip the suite.');
+  }
+
+  try {
+    describe('Illegal callback', []);
+  } catch (e) {
+    assert.equal(e.message, 'Suite "Illegal callback" was defined ' +
+      'but no callback was supplied. ' +
+      'Supply a callback or explicitly skip the suite.');
+  }
+
+  fw.run(function() {
+    assert.deepEqual(fw._logs, [
+      'Support skip start (skip:false)',
+      'Support skip end (skip:false)',
+    ]);
+    done();
   });
 });
 

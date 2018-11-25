@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/test');
+var test = require('../tool/run-test');
 
 var Framework = require('../..');
 
@@ -177,5 +177,49 @@ test.add('Register & run nested suites & tests', function(done) {
     done();
   });
 });
+
+test.add('No/illegal callback of test', function(done) {
+  var fw = createTester();
+  var it = fw.test;
+
+  it('No callback');
+  it('Illegal callback', []);
+
+  fw.run(function() {
+    assert.deepEqual(fw._logs, [
+      'Tree start',
+      'No callback start',
+      'No callback end',
+      'Illegal callback start',
+      'Illegal callback end',
+      'Tree end',
+    ]);
+    done();
+  });
+});
+
+if (typeof implementTree !== 'undefined') {
+
+  test.add('No/illegal callback of suite', function(done) {
+    var fw = createTester();
+    var describe = fw.suite;
+
+    describe('No callback');
+    describe('Illegal callback', []);
+
+    fw.run(function() {
+      assert.deepEqual(fw._logs, [
+        'Tree start',
+        'No callback start',
+        'No callback end',
+        'Illegal callback start',
+        'Illegal callback end',
+        'Tree end',
+      ]);
+      done();
+    });
+  });
+
+}
 
 test.run();
