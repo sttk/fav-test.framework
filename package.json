@@ -1,6 +1,6 @@
 {
   "name": "@fav/test.framework",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Javascript test framework like Mocha.",
   "main": "index.js",
   "files": [
