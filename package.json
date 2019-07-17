@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/sttk/fav-test.framework#readme",
   "devDependencies": {
-    "@fav/cli.parse-argv": "^0.1.1",
+    "@fav/cli.parse-argv": "^0.2.0",
     "@fav/text.escape": "^1.0.2",
     "@fav/text.repeat": "^1.0.2",
     "@fav/type.format-number": "^1.0.2",
@@ -43,15 +43,15 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.2",
-    "eslint": "^5.8.0",
-    "nyc": "^13.0.1",
+    "eslint": "^6.0.1",
+    "nyc": "^14.1.1",
     "promise-polyfill": "^8.1.0",
-    "semver": "^5.6.0",
+    "semver": "^6.2.0",
     "should": "^13.2.3",
     "uglify-js": "^3.4.9"
   },
   "dependencies": {
-    "@fav/prop.define": "^0.1.0",
+    "@fav/prop.define": "^1.0.0",
     "@fav/type.is-array": "^1.0.2",
     "@fav/type.is-empty": "^1.0.2",
     "@fav/type.is-function": "^1.0.2",
