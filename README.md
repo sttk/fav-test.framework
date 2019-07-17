@@ -208,13 +208,13 @@ This event is fired even when a test is error or skipped, but not when they are 
 
 ## Checked
 
-### Node.js (11〜)
+### Node.js (11〜12)
 
-| Platform  |   11   |
-|:---------:|:------:|
-| macOS     |&#x25ef;|
-| Windows10 |&#x25ef;|
-| Linux     |&#x25ef;|
+| Platform  |   11   |   12   |
+|:---------:|:------:|:------:|
+| macOS     |&#x25ef;|&#x25ef;|
+| Windows10 |&#x25ef;|&#x25ef;|
+| Linux     |&#x25ef;|&#x25ef;|
 
 ### Node.js (4〜10)
 
@@ -250,7 +250,7 @@ This event is fired even when a test is error or skipped, but not when they are 
 
 ## License
 
-Copyright (C) 2018 Takayuki Sato
+Copyright (C) 2018-2019 Takayuki Sato
 
 This program is free software under [MIT][mit-url] License.
 See the file LICENSE is this distribution for more details.
