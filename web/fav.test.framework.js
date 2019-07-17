@@ -851,7 +851,7 @@ function test(title, fn) {
   $tatic.registerTest(this, title, fn);
 }
 function run(cb) {
-  $tatic.runTree(this, cb);
+  $tatic.runTree(this, cb || $tatic.noop);
 }
 
 $tatic.registerSuite = function(fw, title, fn) {

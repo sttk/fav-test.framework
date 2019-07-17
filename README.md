@@ -159,13 +159,13 @@ Registers an exclusive test case.
 | *title*   | string   | The title of this test   |
 | *cb*      | function | The callback function which runs a test case |
 
-#### .run(cb) : void
+#### .run([cb]) : void
 
 Runs tests in the test tree of this framework object.
 
 | Parameter | Type     | Description              |
 |:----------|:--------:|:-------------------------|
-| *cb*      | function | The callback function which run when all tests finished. |
+| *cb*      | function | The callback function which run when all tests finished.  (Optional) |
 
 #### .on(eventName, handler) : void
 

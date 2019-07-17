@@ -225,4 +225,34 @@ if (typeof implementTree !== 'undefined') {
 
 }
 
+test.add('Framework#run can have no argument', function(done) {
+  var fw = createTester();
+  var describe = fw.suite;
+  var it = fw.test;
+
+  describe('Suite 1', function() {
+    describe('Suite 1.1', function() {
+      it('Test 1.1.1', function() {
+      });
+    });
+  });
+
+  fw.on('end', function(node) {
+    if (node.depth === 0) {
+      assert.deepEqual(fw._logs, [
+        'Tree start',
+        'Suite 1 start',
+        'Suite 1.1 start',
+        'Test 1.1.1 start',
+        'Test 1.1.1 end',
+        'Suite 1.1 end',
+        'Suite 1 end',
+        'Tree end',
+      ]);
+      done();
+    }
+  });
+  fw.run();
+});
+
 test.run();
