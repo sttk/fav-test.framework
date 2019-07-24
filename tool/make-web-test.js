@@ -5,7 +5,7 @@ var truncFile = require('./lib/trunc-file');
 var concatFile = require('./lib/concat-file');
 
 var path = require('path');
-var srcdir = path.resolve(__dirname, '../test');
+var srcdir = path.resolve(__dirname, '../test/mocha-samples');
 var outdir = path.resolve(__dirname, '../test/web');
 var outfile = path.resolve(outdir, 'browser-test.js');
 

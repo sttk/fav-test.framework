@@ -14,7 +14,8 @@
     "test_w": ".\\test\\test.bat",
     "coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
     "coveralls": "nyc --reporter=text-lcov npm test | coveralls",
-    "web:build": "browserify index.js --standalone fav.test.framework -o web/fav.test.framework.js && cd web && uglifyjs fav.test.framework.js --compress --mangle --keep-fnames -o fav.test.framework.min.js --source-map url=fav.test.framework.min.js.map",
+    "web:build": "browserify index.js --standalone fav.test.framework -o web/fav.test.framework.js && cd web && uglifyjs fav.test.framework.js --compress --mangle --keep-fnames -o fav.test.framework.min.js --source-map url=fav.test.framework.min.js.map && cd .. && node tool/make-web-test.js",
+    "web:test": "node tool/open-web-test.js",
     "build": "npm run lint && npm run coverage && npm run web:build"
   },
   "repository": {
