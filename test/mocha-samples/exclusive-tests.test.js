@@ -102,8 +102,11 @@ fw.run(report.result(fw, [
   '      #concat()',
   '        ✓ should return a new Array',
   '',
+  '    Array',
+  '      #indexOf()',
+  '        ✓ should return -1 unless present',
   '',
-  '    6 passing (${duration})',
+  '',
+  '    7 passing (${duration})',
   '',
 ]));
-
