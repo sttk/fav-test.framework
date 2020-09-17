@@ -23,7 +23,7 @@ install:
 test_script:
   - node --version
   - npm --version
-  - cmd: npm run test_w
+  - cmd: npm run test_win
 
 build: off
 

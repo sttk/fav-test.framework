@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/run-test');
+var test = require('../tool/runner');
 
 var Framework = require('../..');
 
@@ -24,7 +24,7 @@ function createTester() {
   return fw;
 }
 
-test.desc('join - hook');
+test.desc('hook');
 
 test.add('Use hooks: before & after (1)', function(done) {
   var fw = createTester();

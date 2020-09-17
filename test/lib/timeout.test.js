@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/run-test');
+var test = require('../tool/runner');
 
 var Framework = require('../..');
 
@@ -45,7 +45,7 @@ function logTimeout(/* node */) {
   */
 }
 
-test.desc('join - timeout');
+test.desc('timeout');
 
 test.add('default timeout (test)', function(done) {
   var fw = createTester();

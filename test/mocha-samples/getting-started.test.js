@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Getting Started');
 
 var Framework = require('../..');

@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/run-test');
+var test = require('../tool/runner');
 
 var Framework = require('../..');
 
@@ -29,7 +29,7 @@ function createTester() {
   return fw;
 }
 
-test.desc('join - skip');
+test.desc('skip');
 
 test.add('Run .skip test', function(done) {
   var fw = createTester();

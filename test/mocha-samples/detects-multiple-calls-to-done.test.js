@@ -1,6 +1,6 @@
 'use strict';
 
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Detects multiple calls to done()');
 var setImmediate = (typeof setImmediate === 'function') ? setImmediate :
   function(fn) { setTimeout(fn, 0); };

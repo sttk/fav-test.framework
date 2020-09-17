@@ -1,21 +1,19 @@
 'use strict';
 
-var semver = require('semver');
-
 function isSupportES6() {
   return isSupportArrowFunction();
 }
 
-function isSupportArrowFunction() {
+function isSupportArrowFunction() { // >= 4.0.0
   if (isNode()) {
-    return semver.gte(process.version, '4.0.0');
+    return getMajorVersion(process.version) >= 4;
   }
   return isModernBrowser();
 }
 
-function isSupportAsyncAwait() {
+function isSupportAsyncAwait() { // >= 7.6.0
   if (isNode()) {
-    return semver.gte(process.version, '7.6.0');
+    return getMajorVersion(process.version) >= 7;
   }
   return isModernBrowser();
 }
@@ -23,41 +21,23 @@ function isSupportAsyncAwait() {
 function isModernBrowser() {
   if (typeof xslet !== 'undefined' && typeof xslet.platform !== 'undefined') {
     var ua = xslet.platform.ua;
-
-    // Check on latest version
-    if (ua.CHROME) {
+    if (ua.CHROME || ua.FIREFOX || ua.EDGE || ua.SAFARI || ua.VIVALDI) {
       return true;
-    }
-    if (ua.FIREFOX) {
-      return true;
-    }
-    if (ua.MSIE) {
-      return false;
-    }
-    if (ua.EDGE) {
-      return true;
-    }
-    if (ua.SAFARI) {
-      return true;
-    }
-    if (ua.VIVALDI) {
-      return true;
-    }
-    if (ua.PHANTOMJS) {
-      return false;
     }
   }
-
-  return false;
 }
 
 function isNode() {
   if (typeof process === 'object') {
-    if (typeof process.kill === 'function') { // exist from v0.0.6
+    if (typeof process.kill === 'function') {  // exists from v0.0.6
       return true;
     }
   }
   return false;
+}
+
+function getMajorVersion(version) {
+  return Number(version.split('.')[0]);
 }
 
 module.exports = {
@@ -66,4 +46,3 @@ module.exports = {
   isSupportAsyncAwait: isSupportAsyncAwait,
   isSupportArrowFunction: isSupportArrowFunction,
 };
-

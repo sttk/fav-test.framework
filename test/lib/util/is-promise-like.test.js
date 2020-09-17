@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../../tool/run-test');
+var test = require('../../tool/runner');
 
 if (typeof global.Promise !== 'function') {
   global.Promise = require('promise-polyfill');

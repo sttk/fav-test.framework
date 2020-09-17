@@ -41,6 +41,7 @@ var runner = require('./util/async-runner');
 function implement(/* fw */) {
 }
 
+/* istanbul ignore next */  /// overridden in timeout.js
 define.override($tatic, function runHook(hook, cb) {
   var ctx = $tatic.createHookContext(hook);
   runner.runAsync(hook, ctx, cb);
@@ -300,6 +301,7 @@ $tatic.createHook = function(fw, type, title, fn) {
   };
 };
 
+/* istanbul ignore next */  /// overridden in async.js
 $tatic.runHook = function(hook) {
   hook.fn();
 };
@@ -313,6 +315,7 @@ define.override($tatic, function createSuite(fw, title, fn) {
   return suite;
 });
 
+/* istanbul ignore next */  /// overridden in async.js
 define.override($tatic, function runSuite(suite, cb) {
   var fw = suite._framework;
   fw.emit('start', suite);
@@ -323,6 +326,7 @@ define.override($tatic, function runSuite(suite, cb) {
   callback(cb);
 });
 
+/* istanbul ignore next */  /// overridden in async.js
 define.override($tatic, function runTest(test, cb) {
   var fw = test._framework;
   var hooks = $tatic.listEachHooks(test._parent);
@@ -360,6 +364,7 @@ $tatic.listEachHooks = function(node) {
   };
 };
 
+/* istanbul ignore next */  /// used only in overridden methods
 function runNode(node) {
   node.run(node);
 }
@@ -887,6 +892,7 @@ $tatic.createSuite = function(fw, title, fn) {
   };
 };
 
+/* istanbul ignore next */  /// overridden in `hook.js`
 $tatic.runSuite = function(suite, cb) {
   var fw = suite._framework;
   fw.emit('start', suite);
@@ -916,6 +922,7 @@ $tatic.createTest = function(fw, title, fn) {
   };
 };
 
+/* istanbul ignore next */  /// overridden in hook.js
 $tatic.runTest = function(test, cb) {
   var fw = test._framework;
   fw.emit('start', test);

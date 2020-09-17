@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 
-CWD=$(dirname $(which $0))
+CMD=$(dirname $(which $0))
 ERR=0
 
-for f in $(find ${CWD}/unit/util -maxdepth 1 -name *.test.js)
+for f in $(find ${CMD}/lib/util -maxdepth 1 -name *.test.js)
 do
   node ${f}
   ERR=$((ERR + $?))
 done
 
-for f in $(find ${CWD}/unit -maxdepth 1 -name *.test.js)
-do
-  node ${f}
-  ERR=$((ERR + $?))
-done
-
-for f in $(find ${CWD}/join -maxdepth 1 -name *.test.js)
+for f in $(find ${CMD}/lib -maxdepth 1 -name *.test.js)
 do
   node ${f}
   ERR=$((ERR + $?))
@@ -25,9 +19,9 @@ echo ""
 echo "Mocha samples"
 echo ""
 
-for f in $(find ${CWD}/mocha-samples -maxdepth 1 -name *.test.js)
+for f in $(find ${CMD}/mocha-samples -maxdepth 1 -name *.test.js)
 do
-  node ${f} --silent
+  node ${f}
   ERR=$((ERR + $?))
 done
 

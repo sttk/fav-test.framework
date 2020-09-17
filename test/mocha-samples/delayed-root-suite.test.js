@@ -1,6 +1,6 @@
 'use stirct';
 
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Delayed Root Suite');
 
 var Framework = require('../..');
