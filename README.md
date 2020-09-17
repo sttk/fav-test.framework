@@ -250,7 +250,7 @@ This event is fired even when a test is error or skipped, but not when they are 
 
 ## License
 
-Copyright (C) 2018-2019 Takayuki Sato
+Copyright (C) 2018-2020 Takayuki Sato
 
 This program is free software under [MIT][mit-url] License.
 See the file LICENSE is this distribution for more details.
