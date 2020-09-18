@@ -210,11 +210,11 @@ This event is fired even when a test is error or skipped, but not when they are 
 
 ### Node.js (11〜12)
 
-| Platform  |   11   |   12   |
-|:---------:|:------:|:------:|
-| macOS     |&#x25ef;|&#x25ef;|
-| Windows10 |&#x25ef;|&#x25ef;|
-| Linux     |&#x25ef;|&#x25ef;|
+| Platform  |   11   |   12   |   13   |   14   |
+|:---------:|:------:|:------:|:------:|:------:|
+| macOS     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Windows10 |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Linux     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
 
 ### Node.js (4〜10)
 
