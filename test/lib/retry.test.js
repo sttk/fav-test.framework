@@ -1,21 +1,12 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/run-test');
+var test = require('../tool/runner');
 
-var implementEvent = require('../../lib/event');
-var implementTree = require('../../lib/tree');
-var implementHook = require('../../lib/hook');
-var implementAsync = require('../../lib/async');
-var implementRetry = require('../../lib/retry');
+var Framework = require('../..');
 
 function createTester() {
-  var fw = {};
-  implementEvent(fw);
-  implementTree(fw);
-  implementHook(fw);
-  implementAsync(fw);
-  implementRetry(fw);
+  var fw = new Framework();
 
   fw.title = 'Support retries';
   fw._logs = [];
@@ -43,7 +34,7 @@ function createTester() {
   return fw;
 }
 
-test.desc('lib/retry.js');
+test.desc('retry');
 
 test.add('retry test specified times', function(done) {
   var fw = createTester();

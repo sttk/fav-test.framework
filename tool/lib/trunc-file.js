@@ -2,8 +2,8 @@
 
 var fs = require('fs');
 
-function truncFile(filepath) {
-  fs.openSync(filepath, 'w+');
+function truncFile(filePath) {
+  fs.openSync(filePath, 'w+');
 }
 
 module.exports = truncFile;

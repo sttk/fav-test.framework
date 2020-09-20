@@ -1,6 +1,6 @@
 'use strict';
 
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Exclusive Tests');
 
 var Framework = require('../..');

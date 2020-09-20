@@ -1,23 +1,16 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/run-test');
+var test = require('../tool/runner');
 
 if (typeof global.Promise !== 'function') {
   global.Promise = require('promise-polyfill');
 }
 
-var implementEvent = require('../../lib/event');
-var implementTree = require('../../lib/tree');
-var implementHook = require('../../lib/hook');
-var implementAsync = require('../../lib/async');
+var Framework = require('../..');
 
 function createTester() {
-  var fw = {};
-  implementEvent(fw);
-  implementTree(fw);
-  implementHook(fw);
-  implementAsync(fw);
+  var fw = new Framework();
 
   fw.title = 'Support async';
   fw._logs = [];
@@ -53,7 +46,7 @@ function createTester() {
   return fw;
 }
 
-test.desc('lib/async.js');
+test.desc('async');
 
 test.add('Run async tests', function(done) {
   var fw = createTester();

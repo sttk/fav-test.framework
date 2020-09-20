@@ -1,6 +1,6 @@
 'use stirct';
 
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Asynchronous code');
 
 var Framework = require('../..');

@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../../tool/run-test');
+var test = require('../../tool/runner');
 
 var runner = require('../../../lib/util/async-runner');
 

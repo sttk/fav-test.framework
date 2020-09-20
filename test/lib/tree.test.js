@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/run-test');
+var test = require('../tool/runner');
 
 var Framework = require('../..');
 
@@ -24,7 +24,7 @@ function createTester() {
   return fw;
 }
 
-test.desc('join - tree');
+test.desc('tree');
 
 test.add('Register & run tests', function(done) {
   var fw = createTester();

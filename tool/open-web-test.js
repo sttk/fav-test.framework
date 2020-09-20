@@ -7,15 +7,17 @@ const exec = require('child_process').exec;
 const browsers = {
   darwin: {
     chrome: 'open -a "Google Chrome"',
-    fiefox: 'open -a firefox',
+    firefox: 'open -a firefox',
     vivaldi: 'open -a vivaldi',
     safari: 'open -a safari',
+    edge: 'open -a "Microsoft Edge"',
   },
 
   win32: {
     chrome: 'start chrome',
     firefox: 'start firefox',
     vivaldi: 'start vivaldi',
+    edge: 'start msedge',
     ie: 'start iexplore',
   },
 
@@ -26,16 +28,10 @@ const browsers = {
   },
 };
 
-if (os.platform() === 'win32') {
-  console.warn('[WARN]', 'You have to test on MS Edge manually.');
-}
-
 const openers = browsers[os.platform()];
 Object.keys(openers).forEach(ua => {
-  exec([
-    openers[ua],
-    path.resolve(__dirname, '../test/web/browser-test.html'),
-  ].join(' '), err => {
+  const testPath = path.resolve(__dirname, '../test/web/browser-test.html');
+  exec([openers[ua], testPath].join(' '), err => {
     if (err) {
       console.error(err);
     }

@@ -1,10 +1,9 @@
 'use strict';
 
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Retry Tests');
-var Promise = (typeof Promise === 'function') ? Promise :
-              require('promise-polyfill');
-var chkEnv = require('../../tool/chk-env');
+var Promise = (typeof Promise === 'function') ? Promise : require('promise-polyfill');
+var checkEnv = require('../../tool/check-env');
 
 var Framework = require('../..');
 var fw = new Framework();
@@ -24,7 +23,7 @@ fw.on('error', function(test) {
 });
 
 var chai = require('chai');
-if (chkEnv.isSupportES6()) {
+if (checkEnv.isSupportES6()) {
   var chaiAsPromised = require('chai-as-promised');
   chai.use(chaiAsPromised);
 }
@@ -58,7 +57,7 @@ describe('retries (2 times)', function() {
   it('should succeed on the 3rd try', function() {
     // Specify this test to only retry up to 2 times
     this.retries(2);
-    if (chkEnv.isSupportES6()) {
+    if (checkEnv.isSupportES6()) {
       return expect($('.foo').isDisplayed()).to.eventually.be.true;
     } else {
       return $('.foo').isDisplayed().then(function(value) {
@@ -82,7 +81,7 @@ describe('retries (3 times)', function() {
 
   it('should succeed on the 3rd try', function() {
     this.retries(3);
-    if (chkEnv.isSupportES6()) {
+    if (checkEnv.isSupportES6()) {
       return expect($('.foo').isDisplayed()).to.eventually.be.true;
     } else {
       return $('.foo').isDisplayed().then(function(value) {

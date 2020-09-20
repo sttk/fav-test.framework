@@ -1,9 +1,8 @@
 'use strict';
 
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Working with promises');
-var Promise = (typeof Promise === 'function') ? Promise :
-              require('promise-polyfill');
+var Promise = (typeof Promise === 'function') ? Promise : require('promise-polyfill');
 
 var Framework = require('../..');
 var fw = new Framework();

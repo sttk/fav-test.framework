@@ -1,9 +1,8 @@
 'use strict';
 
-var Reporter = require('../tool/report');
+var Reporter = require('../tool/reporter');
 var report = new Reporter('Using async / await');
-var Promise = (typeof Promise === 'function') ? Promise :
-              require('promise-polyfill');
+var Promise = (typeof Promise === 'function') ? Promise : require('promise-polyfill');
 
 var Framework = require('../..');
 var fw = new Framework();
@@ -24,7 +23,7 @@ fw.on('timeout', function(test) {
   report.timeout(test);
 });
 
-var chkEnv = require('../../tool/chk-env');
+var checkEnv = require('../../tool/check-env');
 
 var should = require('should');
 var assert = require('assert');
@@ -53,7 +52,7 @@ var tobi = 'Tobi',
 
 var db = new DB();
 
-if (!chkEnv.isSupportAsyncAwait()) {
+if (!checkEnv.isSupportAsyncAwait()) {
   report.saySkipped();
   return;
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var test = require('../tool/run-test');
+var test = require('../tool/runner');
 
 var Framework = require('../..');
 
@@ -15,7 +15,7 @@ function createTester() {
   return fw;
 }
 
-test.desc('join - event');
+test.desc('event');
 
 test.add('Register & emit events', function(done) {
   var fw = createTester();

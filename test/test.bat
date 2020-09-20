@@ -5,17 +5,12 @@ setlocal enabledelayedexpansion
 set CWD=%~d0%~p0
 set ERR=0
 
-for %%f in (%CWD%unit\util\*.test.js) do (
+for %%f in (%CWD%lib\util\*.test.js) do (
   node %%f --silent
   set /a ERR=!ERR! + %ERRORLEVEL%
 )
 
-for %%f in (%CWD%unit\*.test.js) do (
-  node %%f --silent
-  set /a ERR=!ERR! + %ERRORLEVEL%
-)
-
-for %%f in (%CWD%join\*.test.js) do (
+for %%f in (%CWD%lib\*.test.js) do (
   node %%f --silent
   set /a ERR=!ERR! + %ERRORLEVEL%
 )
