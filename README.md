@@ -205,6 +205,20 @@ Is fired when a test is skipped.
 Is fired when a suite or a test ends.
 This event is fired even when a test is error or skipped, but not when they are excluded by other `.onlySuite` or `.onlyTest`.
 
+## Properties
+
+#### `_retries` : number
+
+Is retry times of failure tests.
+
+#### `_slow` : number
+
+Is threshold milliseconds specifying "slow" test cases.
+
+#### `_timeout` : number
+
+Is threshold milliseconds specifying "timeout" test cases.
+
 
 ## Checked
 
