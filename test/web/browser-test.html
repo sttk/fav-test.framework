@@ -21,9 +21,13 @@
  <script src="./detects-multiple-calls-to-done.test.js"></script>
  <script src="./asynchronous-code.test.js"></script>
  <script src="./working-with-promises.test.js"></script>
- <!--[if !IE]>
- <script src="./using-async-await.test.js"></script>
- <![endif]-->
+ <script>
+ if (!xslet.platform.ua.MSIE) {
+   var script = document.createElement('script');
+   script.setAttribute('src', './using-async-await.test.js');
+   document.body.appendChild(script);
+ }
+ </script>
  <script src="./synchronous-code.test.js"></script>
  <script src="./hooks.test.js"></script>
  <script src="./describing-hooks.test.js"></script>
