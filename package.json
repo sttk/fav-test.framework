@@ -42,15 +42,15 @@
     "@fav/text.repeat": "^1.0.4",
     "@fav/type.format-number": "^1.0.2",
     "@xslet/platform": "^0.3.2",
-    "browserify": "^16.5.2",
+    "browserify": "^17.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.1.0",
-    "eslint": "^7.9.0",
+    "eslint": "^7.13.0",
     "nyc": "^15.1.0",
-    "promise-polyfill": "^8.1.3",
+    "promise-polyfill": "^8.2.0",
     "should": "^13.2.3",
-    "uglify-js": "^3.10.4"
+    "uglify-js": "^3.11.5"
   },
   "dependencies": {
     "@fav/prop.define": "^1.0.0",
