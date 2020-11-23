@@ -126,6 +126,7 @@ $tatic.emitHookError = function(err, hook, node) {
     type: hook.type,
     title: hook.title,
     depth: node.depth + 1,
+    fn: hook.fn,
     error: err,
     node: node,
   });

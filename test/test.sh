@@ -21,7 +21,7 @@ echo ""
 
 for f in $(find ${CMD}/mocha-samples -maxdepth 1 -name *.test.js)
 do
-  node ${f}
+  node ${f} --silent
   ERR=$((ERR + $?))
 done
 

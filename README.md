@@ -222,13 +222,13 @@ Is threshold milliseconds specifying "timeout" test cases.
 
 ## Checked
 
-### Node.js (11〜12)
+### Node.js (11〜)
 
-| Platform  |   11   |   12   |   13   |   14   |
-|:---------:|:------:|:------:|:------:|:------:|
-| macOS     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
-| Windows10 |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
-| Linux     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Platform  |   11   |   12   |   13   |   14   |   15   |
+|:---------:|:------:|:------:|:------:|:------:|:------:|
+| macOS     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Windows10 |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
+| Linux     |&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|&#x25ef;|
 
 ### Node.js (4〜10)
 

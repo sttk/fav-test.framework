@@ -17,10 +17,6 @@ it.only = fw.onlyTest;
 
 fw.title = 'Using Async / Await';
 
-if (xslet.platform.ua.MSIE) {
-  fw.skip = fw._skip = true;
-}
-
 var expect = chai.expect;
 
 function DB() {
